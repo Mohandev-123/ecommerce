@@ -34,10 +34,10 @@ def get_cart(request):
 def add_to_cart(request):
     product_id = request.data.get('product_id')
     product = Product.objects.get(id=product_id)
-    cart, created = Cart.objects.get_or_create(user=None)
+    cart, created = Cart.objects.get_or_create(user=request.user)
     item, created = CartItem.objects.get_or_create(cart=cart, product=product)
     if not created:
-        item.quatity += 1
+        item.quantity += 1
         item.save()
     return Response({'message':'Product added to cart',"cart":CartSerializer(cart).data})
 

@@ -59,11 +59,11 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quatity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quatity} x {self.product.name}"
+        return f"{self.quantity} x {self.product.name}"
 
     @property
     def subtotal(self):
-        return self.quatity * self.product.price
+        return self.quantity * self.product.price
